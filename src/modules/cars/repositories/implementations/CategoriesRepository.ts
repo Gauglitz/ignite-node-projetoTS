@@ -1,17 +1,25 @@
-import { Category } from "../model/Category";
+import { Category } from "../../model/Category";
+import {
+  ICategoriesRepository,
+  ICreateCategoryDTO,
+} from "../ICategoriesRepository";
 
-// DTO - Data transfer object - Obj responsavel pela transf entre uma
-// class e outra
-interface ICreateCategoryDTO {
-  name: string;
-  description: string;
-}
+// singleton // instancia Global
 
-class CategoriesRepository {
+class CategoriesRepository implements ICategoriesRepository {
   private categories: Category[];
 
-  constructor() {
+  private static INSTANCE: CategoriesRepository;
+
+  private constructor() {
     this.categories = [];
+  }
+
+  public static getInstance(): CategoriesRepository {
+    if (!CategoriesRepository.INSTANCE) {
+      CategoriesRepository.INSTANCE = new CategoriesRepository();
+    }
+    return CategoriesRepository.INSTANCE;
   }
 
   create({ description, name }: ICreateCategoryDTO): void {
@@ -24,9 +32,11 @@ class CategoriesRepository {
     });
     this.categories.push(category);
   }
+
   list(): Category[] {
     return this.categories;
   }
+
   findByName(name: string): Category {
     const category = this.categories.find((category) => category.name === name);
     return category;
