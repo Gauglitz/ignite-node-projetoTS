@@ -6,9 +6,9 @@
     "password": "suasenha",
     "database": "rentalx",
     "entities":  [
-        "./src/shared/infra/typeorm/migrations/*.ts"
+        "./src/modules/**/infra/typeorm/entities/*.ts"
     ],
-    "migrations": ["./src/shared/infra/typeorm/migrations/*.ts"],
+    "migrations": ["./src/shared/infra/typeorm/migrations/*. ts"],
     "cli": {
         "migrationsDir": "./src/shared/infra/typeorm/migrations"
     }
