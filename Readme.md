@@ -1,5 +1,8 @@
 
 **//Ainda não terminei//**
+ - Corrigi alguns erros de conexão do typeorm e do token.
+ - Criei o seed de admin e implementei o middleware de acesso do admin.
+
 
 # Cadastro de carro
 
