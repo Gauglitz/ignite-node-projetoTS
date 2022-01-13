@@ -19,19 +19,21 @@ export async function ensureAuthenticated(
     throw new AppError("Token missing", 401);
   }
 
-  const [, token] = authHeader.split("");
+  const [, token] = authHeader.split(" ");
   try {
     const { sub: user_id } = verify(token, "abcd1234") as IPayload;
     const usersRepository = new UsersRepository();
     const user = await usersRepository.findById(user_id);
+
     if (!user) {
       throw new AppError("User does not exists!", 401);
     }
+
     request.user = {
       id: user_id,
     };
 
-    next();
+    return next();
   } catch {
     throw new AppError("Invalid token!", 401);
   }
